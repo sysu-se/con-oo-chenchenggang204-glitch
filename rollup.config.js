@@ -5,7 +5,6 @@ import copy from 'rollup-plugin-copy';
 import css from 'rollup-plugin-css-only';
 import livereload from 'rollup-plugin-livereload';
 import svelte from 'rollup-plugin-svelte';
-import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 
 const mode = process.env.NODE_ENV;
@@ -17,7 +16,6 @@ const preprocess = sveltePreprocess({
 			require('postcss-import'),
 			require('tailwindcss'),
 			require('autoprefixer'),
-			...(production ? [require('postcss-clean')] : []),
 		],
 	},
 	defaults: {
@@ -84,9 +82,6 @@ export default {
 			watch: ['dist/bundle.js', 'dist/bundle.css'],
 		}),
 
-		// If we're building for production (npm run build
-		// instead of npm run dev), minify
-		production && terser(),
 	],
 	watch:   {
 		clearScreen: false,

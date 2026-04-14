@@ -8,12 +8,12 @@
 		"predev": "rimraf dist",
 		"dev": "rollup -c -w",
 		"start": "sirv dist",
-		"test": "vitest run",
-		"test:contract": "vitest run tests/hw1/01-contract.test.js",
-		"test:sudoku": "vitest run tests/hw1/02-sudoku-basic.test.js",
-		"test:clone": "vitest run tests/hw1/03-clone.test.js",
-		"test:game": "vitest run tests/hw1/04-game-undo-redo.test.js",
-		"test:serialization": "vitest run tests/hw1/05-serialization.test.js"
+		"test": "vitest run --configLoader runner --no-file-parallelism --pool=threads --poolOptions.threads.singleThread --poolOptions.threads.isolate=false",
+		"test:contract": "vitest run tests/hw1/01-contract.test.js --configLoader runner --no-file-parallelism --pool=threads --poolOptions.threads.singleThread --poolOptions.threads.isolate=false",
+		"test:sudoku": "vitest run tests/hw1/02-sudoku-basic.test.js --configLoader runner --no-file-parallelism --pool=threads --poolOptions.threads.singleThread --poolOptions.threads.isolate=false",
+		"test:clone": "vitest run tests/hw1/03-clone.test.js --configLoader runner --no-file-parallelism --pool=threads --poolOptions.threads.singleThread --poolOptions.threads.isolate=false",
+		"test:game": "vitest run tests/hw1/04-game-undo-redo.test.js --configLoader runner --no-file-parallelism --pool=threads --poolOptions.threads.singleThread --poolOptions.threads.isolate=false",
+		"test:serialization": "vitest run tests/hw1/05-serialization.test.js --configLoader runner --no-file-parallelism --pool=threads --poolOptions.threads.singleThread --poolOptions.threads.isolate=false"
 	},
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "16.0.0",
