@@ -1,5 +1,5 @@
 <script>
-	import { userGrid } from '@sudoku/stores/grid';
+	import { gameSession } from '../../game-session.js';
 	import { cursor } from '@sudoku/stores/cursor';
 	import { notes } from '@sudoku/stores/notes';
 	import { candidates } from '@sudoku/stores/candidates';
@@ -15,18 +15,41 @@
 				} else {
 					candidates.add($cursor, num);
 				}
-				userGrid.set($cursor, 0);
+				gameSession.guess({
+					row: $cursor.y,
+					col: $cursor.x,
+					value: 0,
+				});
 			} else {
 				if ($candidates.hasOwnProperty($cursor.x + ',' + $cursor.y)) {
 					candidates.clear($cursor);
 				}
 
-				userGrid.set($cursor, num);
+				gameSession.guess({
+					row: $cursor.y,
+					col: $cursor.x,
+					value: num,
+				});
 			}
 		}
 	}
 
 	function handleKey(e) {
+		if ((e.ctrlKey || e.metaKey) && !e.shiftKey && (e.key === 'z' || e.key === 'Z')) {
+			e.preventDefault();
+			gameSession.undo();
+			return;
+		}
+
+		if (
+			(e.ctrlKey || e.metaKey) &&
+			(e.key === 'y' || e.key === 'Y' || (e.shiftKey && (e.key === 'z' || e.key === 'Z')))
+		) {
+			e.preventDefault();
+			gameSession.redo();
+			return;
+		}
+
 		switch (e.key || e.keyCode) {
 			case 'ArrowUp':
 			case 38:
